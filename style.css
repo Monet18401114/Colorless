@@ -1164,3 +1164,17 @@ h4 {
 }
 
 }
+.hero h2,
+.section-heading h2,
+.world-copy h3,
+.class-panel h3,
+.minor-heading h3,
+.district-copy h3,
+.institution-card h3,
+.hidden-organizations h3,
+.artifact h3,
+.password-note h3 {
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  letter-spacing: -0.06em;
+}
