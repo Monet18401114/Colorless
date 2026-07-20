@@ -1,0 +1,1087 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap");
+
+:root {
+  --paper: #f2ede3;
+  --paper-dark: #e7dfd1;
+  --ink: #282725;
+  --muted: #77736c;
+  --line: rgba(40, 39, 37, 0.18);
+  --night: #111416;
+  --night-soft: #1a1e20;
+  --night-line: rgba(255, 255, 255, 0.15);
+  --white: #f8f5ef;
+  --accent: #a88f63;
+  --header-height: 72px;
+  --content-width: 1240px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 300;
+  word-break: keep-all;
+}
+
+body.locked,
+body.menu-open {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+blockquote,
+figure,
+dl {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-weight: 400;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* 입장 화면 */
+.entrance {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  background: url("assets/hero/home.png") center center / cover no-repeat;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+}
+
+.entrance__veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(246, 241, 233, 0.18);
+}
+
+.entrance__content {
+  position: relative;
+  width: min(90%, 720px);
+  padding: 30px;
+  text-align: center;
+}
+
+.entrance__emblem {
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 26px;
+  object-fit: contain;
+}
+
+.eyebrow {
+  margin-bottom: 13px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.42em;
+}
+
+.entrance h1 {
+  margin-bottom: 20px;
+  font-size: clamp(3.4rem, 10vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: 0.14em;
+}
+
+.entrance__tagline {
+  margin-bottom: 35px;
+  color: #65615b;
+  line-height: 1.9;
+}
+
+.enter-button {
+  padding: 16px 34px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.enter-button:hover,
+.enter-button:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.entrance__notice {
+  margin-top: 30px;
+  color: rgba(40, 39, 37, 0.55);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+}
+
+.entrance.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* 사이트 */
+.site {
+  display: none;
+}
+
+.site.visible {
+  display: block;
+}
+
+/* 헤더 */
+.header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5vw;
+  color: var(--white);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.header.scrolled {
+  border-bottom: 1px solid var(--night-line);
+  background: rgba(17, 20, 22, 0.86);
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Playfair Display", serif;
+  font-size: 0.84rem;
+  letter-spacing: 0.14em;
+}
+
+.brand img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.navigation a {
+  position: relative;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.67rem;
+  letter-spacing: 0.14em;
+}
+
+.navigation a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -7px;
+  left: 0;
+  height: 1px;
+  background: var(--white);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.navigation a:hover,
+.navigation a.active {
+  color: var(--white);
+}
+
+.navigation a:hover::after,
+.navigation a.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.menu-button {
+  display: none;
+  width: 42px;
+  height: 42px;
+  padding: 10px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu-button span {
+  display: block;
+  height: 1px;
+  margin: 6px 0;
+  background: var(--white);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-button.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-button.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-button.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* 히어로 */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding: calc(var(--header-height) + 90px) 7vw 10vh;
+  background: url("assets/hero/hero.png") center center / cover no-repeat;
+}
+
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(9, 12, 14, 0.74), rgba(9, 12, 14, 0.1)),
+    linear-gradient(0deg, rgba(9, 12, 14, 0.76), transparent 60%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 850px;
+  color: var(--white);
+}
+
+.hero__content .eyebrow {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.hero h2 {
+  margin-bottom: 25px;
+  font-size: clamp(2.8rem, 7vw, 6.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.hero__content > p:not(.eyebrow) {
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.9;
+}
+
+.text-link {
+  display: inline-flex;
+  gap: 15px;
+  margin-top: 18px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  font-size: 0.75rem;
+  letter-spacing: 0.13em;
+}
+
+.text-link span {
+  transition: transform 0.25s ease;
+}
+
+.text-link:hover span {
+  transform: translateY(4px);
+}
+
+/* 공통 섹션 */
+.section {
+  padding: 125px max(6vw, 24px);
+}
+
+.section > * {
+  width: min(100%, var(--content-width));
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.paper-section {
+  position: relative;
+  background: var(--paper);
+}
+
+.paper-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.25;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(168, 143, 99, 0.12), transparent 35%),
+    radial-gradient(circle at 90% 80%, rgba(120, 110, 100, 0.1), transparent 35%);
+}
+
+.section-heading {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 34px;
+  margin-bottom: 65px;
+}
+
+.section-number {
+  padding-top: 7px;
+  color: rgba(40, 39, 37, 0.44);
+  font-family: "Playfair Display", serif;
+  font-size: 0.8rem;
+}
+
+.section-label {
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
+}
+
+.section-heading h2 {
+  margin-bottom: 0;
+  font-size: clamp(2.3rem, 5vw, 4.8rem);
+  line-height: 1.1;
+}
+
+.section-heading.light {
+  color: var(--white);
+}
+
+.section-heading.light .section-number,
+.section-heading.light .section-label {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+/* 세계관 */
+.world-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: 7vw;
+  align-items: center;
+}
+
+.world-map {
+  margin-bottom: 0;
+}
+
+.world-map img {
+  width: 100%;
+  max-height: 900px;
+  object-fit: cover;
+  object-position: top;
+  box-shadow: 0 24px 80px rgba(55, 47, 38, 0.12);
+}
+
+.world-copy h3 {
+  margin-bottom: 28px;
+  font-size: clamp(1.9rem, 3.6vw, 3.1rem);
+  line-height: 1.3;
+}
+
+.world-copy > p {
+  color: #68635c;
+  line-height: 1.95;
+}
+
+.world-copy blockquote {
+  margin: 42px 0 0;
+  padding: 20px 0 20px 24px;
+  border-left: 1px solid rgba(40, 39, 37, 0.45);
+  font-family: "Playfair Display", serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.principles {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 90px;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.principles article {
+  min-height: 220px;
+  padding: 30px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.principles span {
+  color: var(--muted);
+  font-family: "Playfair Display", serif;
+}
+
+.principles h3 {
+  margin: 45px 0 13px;
+  font-size: 1.6rem;
+}
+
+.principles p {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* 계급 */
+.class-section,
+.institution-section {
+  background: var(--night);
+  color: var(--white);
+}
+
+.class-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--night-line);
+  border-left: 1px solid var(--night-line);
+}
+
+.class-panel {
+  padding: 50px;
+  border-right: 1px solid var(--night-line);
+  border-bottom: 1px solid var(--night-line);
+}
+
+.color-panel {
+  background:
+    radial-gradient(circle at top right, rgba(218, 189, 202, 0.13), transparent 45%);
+}
+
+.paper-panel {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 45%);
+}
+
+.panel-label {
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+}
+
+.class-panel h3 {
+  margin-bottom: 22px;
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
+}
+
+.panel-copy {
+  min-height: 92px;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.85;
+}
+
+.accordion {
+  margin-top: 35px;
+  border-top: 1px solid var(--night-line);
+}
+
+.accordion-button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 45px 1fr 25px;
+  gap: 10px;
+  align-items: center;
+  padding: 20px 0;
+  border: 0;
+  border-bottom: 1px solid var(--night-line);
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+  text-align: left;
+}
+
+.accordion-button span {
+  color: rgba(255, 255, 255, 0.35);
+  font-family: "Playfair Display", serif;
+  font-size: 0.75rem;
+}
+
+.accordion-button strong {
+  font-size: 0.76rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+}
+
+.accordion-button i {
+  font-style: normal;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.accordion-button.open i {
+  transform: rotate(45deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.accordion-content.open {
+  max-height: 250px;
+  opacity: 1;
+}
+
+.accordion-content p {
+  margin: 0;
+  padding: 0 0 22px 55px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.86rem;
+  line-height: 1.85;
+}
+
+.acquisition {
+  margin-top: 90px;
+}
+
+.minor-heading {
+  margin-bottom: 34px;
+}
+
+.minor-heading p {
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.66rem;
+  letter-spacing: 0.28em;
+}
+
+.minor-heading h3 {
+  margin-bottom: 0;
+  font-size: clamp(1.9rem, 3.5vw, 3.1rem);
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--night-line);
+  border-left: 1px solid var(--night-line);
+}
+
+.method-grid article {
+  min-height: 220px;
+  padding: 28px;
+  border-right: 1px solid var(--night-line);
+  border-bottom: 1px solid var(--night-line);
+}
+
+.method-grid span {
+  color: rgba(255, 255, 255, 0.3);
+  font-family: "Playfair Display", serif;
+}
+
+.method-grid h4 {
+  margin: 45px 0 12px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.method-grid p {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.84rem;
+  line-height: 1.75;
+}
+
+/* 구역 */
+.district-stack {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 90px;
+}
+
+.district {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 6vw;
+  align-items: center;
+}
+
+.district.reverse .district-image {
+  order: 2;
+}
+
+.district.reverse .district-copy {
+  order: 1;
+}
+
+.district-image img {
+  width: 100%;
+  min-height: 580px;
+  object-fit: cover;
+  box-shadow: 0 25px 80px rgba(55, 47, 38, 0.12);
+}
+
+.district-copy > p:first-child {
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 0.67rem;
+  letter-spacing: 0.25em;
+}
+
+.district-copy h3 {
+  margin-bottom: 24px;
+  font-size: clamp(2.1rem, 4.5vw, 4rem);
+}
+
+.district-copy > p:last-child {
+  color: #68635c;
+  line-height: 1.9;
+}
+
+/* 기관 */
+.institution-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+.institution-card {
+  grid-column: span 6;
+  overflow: hidden;
+  border: 1px solid var(--night-line);
+  background: var(--night-soft);
+}
+
+.institution-card.wide {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+.institution-card img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+.institution-card.wide img {
+  height: 100%;
+  min-height: 460px;
+}
+
+.institution-card > div {
+  padding: 30px;
+}
+
+.institution-card > div > p,
+.hidden-organizations p {
+  margin-bottom: 9px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+}
+
+.institution-card h3,
+.hidden-organizations h3 {
+  margin-bottom: 12px;
+  font-size: 2rem;
+}
+
+.institution-card span,
+.hidden-organizations span {
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.8;
+}
+
+.hidden-organizations {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 60px;
+  border-top: 1px solid var(--night-line);
+  border-left: 1px solid var(--night-line);
+}
+
+.hidden-organizations article {
+  min-height: 250px;
+  padding: 35px;
+  border-right: 1px solid var(--night-line);
+  border-bottom: 1px solid var(--night-line);
+}
+
+/* 아이템 */
+.artifact-list {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 100px;
+}
+
+.artifact {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 7vw;
+  align-items: center;
+}
+
+.artifact.reverse img {
+  order: 2;
+}
+
+.artifact.reverse > div {
+  order: 1;
+}
+
+.artifact img {
+  min-height: 520px;
+  object-fit: cover;
+  box-shadow: 0 25px 80px rgba(55, 47, 38, 0.12);
+}
+
+.artifact-code {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 0.66rem;
+  letter-spacing: 0.25em;
+}
+
+.artifact h3 {
+  margin-bottom: 25px;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+}
+
+.artifact > div > p:not(.artifact-code) {
+  color: #68635c;
+  line-height: 1.9;
+}
+
+.artifact dl {
+  margin-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.artifact dl div {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.artifact dt {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.artifact dd {
+  margin: 0;
+  font-size: 0.84rem;
+}
+
+.password-note {
+  position: relative;
+  z-index: 1;
+  margin-top: 100px;
+  padding: 45px;
+  border: 1px solid var(--line);
+  text-align: center;
+}
+
+.password-note p {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 0.64rem;
+  letter-spacing: 0.28em;
+}
+
+.password-note h3 {
+  margin-bottom: 18px;
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+}
+
+.password-note span {
+  color: #68635c;
+  line-height: 1.8;
+}
+
+/* 푸터 */
+.footer {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 24px;
+  border-top: 1px solid var(--line);
+  background: var(--paper-dark);
+  text-align: center;
+}
+
+.footer img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  object-fit: contain;
+}
+
+.footer p {
+  margin-bottom: 8px;
+  font-family: "Playfair Display", serif;
+  letter-spacing: 0.15em;
+}
+
+.footer span {
+  color: var(--muted);
+  font-size: 0.77rem;
+}
+
+.footer a {
+  margin-top: 35px;
+  color: var(--muted);
+  font-size: 0.67rem;
+  letter-spacing: 0.18em;
+}
+
+/* 등장 효과 */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 태블릿 */
+@media (max-width: 1000px) {
+  .world-grid,
+  .district,
+  .artifact {
+    grid-template-columns: 1fr;
+  }
+
+  .district.reverse .district-image,
+  .district.reverse .district-copy,
+  .artifact.reverse img,
+  .artifact.reverse > div {
+    order: initial;
+  }
+
+  .principles {
+    grid-template-columns: 1fr;
+  }
+
+  .class-panel {
+    padding: 38px;
+  }
+
+  .method-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .institution-card {
+    grid-column: span 12;
+  }
+
+  .institution-card.wide {
+    grid-template-columns: 1fr;
+  }
+
+  .hidden-organizations {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 760px) {
+  :root {
+    --header-height: 64px;
+  }
+
+  .section {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+
+  .header {
+    padding: 0 18px;
+  }
+
+  .brand span {
+    font-size: 0.72rem;
+  }
+
+  .brand img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .menu-button {
+    position: relative;
+    z-index: 1002;
+    display: block;
+  }
+
+  .navigation {
+    position: fixed;
+    z-index: 1001;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 25px;
+    padding: 80px 10vw;
+    background: rgba(17, 20, 22, 0.98);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  }
+
+  .navigation.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .navigation a {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.9rem, 9vw, 3rem);
+    letter-spacing: 0.04em;
+  }
+
+  .entrance__emblem {
+    width: 105px;
+    height: 105px;
+  }
+
+  .entrance h1 {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  .hero {
+    padding: 120px 24px 70px;
+    background-position: center;
+  }
+
+  .hero__veil {
+    background: linear-gradient(0deg, rgba(9, 12, 14, 0.88), rgba(9, 12, 14, 0.12));
+  }
+
+  .hero h2 {
+    font-size: clamp(2.5rem, 11vw, 4.1rem);
+  }
+
+  .section-heading {
+    gap: 18px;
+    margin-bottom: 45px;
+  }
+
+  .world-map img {
+    max-height: none;
+  }
+
+  .class-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .class-panel {
+    padding: 28px 22px;
+  }
+
+  .panel-copy {
+    min-height: 0;
+  }
+
+  .accordion-button {
+    grid-template-columns: 35px 1fr 20px;
+  }
+
+  .accordion-content p {
+    padding-left: 45px;
+  }
+
+  .method-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .district-image img,
+  .artifact img {
+    min-height: 380px;
+  }
+
+  .institution-card img {
+    height: 290px;
+  }
+
+  .institution-card.wide img {
+    min-height: 300px;
+  }
+
+  .artifact dl div {
+    grid-template-columns: 105px 1fr;
+  }
+
+  .password-note {
+    padding: 34px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
